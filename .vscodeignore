@@ -2,7 +2,7 @@
 src/**
 node_modules/**
 .gitignore
-jest.config.ts
+jest.config.js
 tsconfig.json
 **/*.test.ts
 **/*.map
