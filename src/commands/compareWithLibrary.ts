@@ -32,11 +32,19 @@ export async function compareWithLibrary(
   let refContent: string;
 
   try {
-    [devContent, refContent] = await Promise.all([
-      api.downloadMemberContent(devLibrary, file, memberName),
-      api.downloadMemberContent(refLibrary, file, memberName),
-    ]);
-  } catch {
+    devContent = await api.downloadMemberContent(devLibrary, file, memberName);
+  } catch (e) {
+    console.error(e);
+    vscode.window.showErrorMessage(
+      `Membre ${memberName} introuvable dans ${devLibrary}/${file}.`
+    );
+    return;
+  }
+
+  try {
+    refContent = await api.downloadMemberContent(refLibrary, file, memberName);
+  } catch (e) {
+    console.error(e);
     vscode.window.showErrorMessage(
       `Membre ${memberName} introuvable dans ${refLibrary}/${file}.`
     );

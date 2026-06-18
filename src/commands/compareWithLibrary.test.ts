@@ -47,6 +47,21 @@ describe('compareWithLibrary', () => {
     expect(vscode.commands.executeCommand).not.toHaveBeenCalled();
   });
 
+  it('shows error with dev library name when dev member download fails', async () => {
+    const mockApi = { downloadMemberContent: jest.fn() };
+    mockApi.downloadMemberContent
+      .mockRejectedValueOnce(new Error('dev not found'));
+    (ibmiApiModule.getIBMiApi as jest.Mock).mockReturnValue(mockApi);
+    (vscode.window.showInputBox as jest.Mock).mockResolvedValue('PRODLIB');
+
+    await compareWithLibrary(mockItem, provider);
+
+    expect(vscode.window.showErrorMessage).toHaveBeenCalledWith(
+      'Membre MYPGM introuvable dans DEVLIB/QRPGSRC.'
+    );
+    expect(vscode.commands.executeCommand).not.toHaveBeenCalled();
+  });
+
   it('opens diff editor with ref on left and dev on right', async () => {
     const mockApi = { downloadMemberContent: jest.fn() };
     mockApi.downloadMemberContent
