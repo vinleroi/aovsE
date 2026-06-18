@@ -3,9 +3,15 @@
   "displayName": "ascoVS — IBM i Compare",
   "description": "Compare IBM i source members between libraries",
   "version": "0.0.1",
-  "engines": { "vscode": "^1.85.0" },
-  "categories": ["Other"],
-  "extensionDependencies": ["halcyontech.vscode-ibmi"],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionDependencies": [
+    "halcyontech.vscode-ibmi"
+  ],
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
@@ -30,6 +36,7 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.85.0",
     "jest": "^29.0.0",

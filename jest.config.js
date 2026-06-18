@@ -4,5 +4,12 @@ module.exports = {
   moduleNameMapper: {
     '^vscode$': '<rootDir>/src/__mocks__/vscode.ts'
   },
-  testMatch: ['**/*.test.ts']
+  testMatch: ['**/*.test.ts'],
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {
+      tsconfig: {
+        types: ['jest', 'node']
+      }
+    }]
+  }
 };
