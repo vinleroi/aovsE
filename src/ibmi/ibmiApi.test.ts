@@ -11,7 +11,16 @@ describe('getIBMiApi', () => {
 
   it('returns undefined when no active connection', () => {
     (vscode.extensions.getExtension as jest.Mock).mockReturnValue({
+      isActive: true,
       exports: { instance: { getConnection: () => undefined } },
+    });
+    expect(getIBMiApi()).toBeUndefined();
+  });
+
+  it('returns undefined when extension is not active', () => {
+    (vscode.extensions.getExtension as jest.Mock).mockReturnValue({
+      isActive: false,
+      exports: { instance: { getConnection: jest.fn() } },
     });
     expect(getIBMiApi()).toBeUndefined();
   });
@@ -19,6 +28,7 @@ describe('getIBMiApi', () => {
   it('returns an api object when connection is active', () => {
     const mockDownload = jest.fn().mockResolvedValue('source code');
     (vscode.extensions.getExtension as jest.Mock).mockReturnValue({
+      isActive: true,
       exports: {
         instance: {
           getConnection: () => ({ content: { downloadMemberContent: mockDownload } }),
@@ -31,6 +41,7 @@ describe('getIBMiApi', () => {
   it('delegates downloadMemberContent with asp=undefined', async () => {
     const mockDownload = jest.fn().mockResolvedValue('DCL-F MYFILE DISK;');
     (vscode.extensions.getExtension as jest.Mock).mockReturnValue({
+      isActive: true,
       exports: {
         instance: {
           getConnection: () => ({ content: { downloadMemberContent: mockDownload } }),

@@ -20,11 +20,13 @@ export async function compareWithLibrary(
     return;
   }
 
-  const refLibrary = await vscode.window.showInputBox({
+  const rawLibrary = await vscode.window.showInputBox({
     prompt: 'Entrez le nom de la bibliothèque de référence',
     placeHolder: 'ex: PRODLIB',
   });
-  if (!refLibrary) return;
+  if (!rawLibrary) return;
+
+  const refLibrary = rawLibrary.trim().toUpperCase();
 
   const { library: devLibrary, file, name: memberName } = item.member;
 

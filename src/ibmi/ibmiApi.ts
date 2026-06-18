@@ -21,7 +21,7 @@ type CodeForIBMiExports = {
 
 export function getIBMiApi(): IBMiApi | undefined {
   const ext = vscode.extensions.getExtension<CodeForIBMiExports>('halcyontech.vscode-ibmi');
-  if (!ext) return undefined;
+  if (!ext || !ext.isActive) return undefined;
 
   const connection = ext.exports.instance.getConnection();
   if (!connection) return undefined;
