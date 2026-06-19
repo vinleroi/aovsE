@@ -9,9 +9,10 @@
   "categories": [
     "Other"
   ],
-  "extensionDependencies": [
-    "halcyontech.vscode-ibmi"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vinleroi/aovsE"
+  },
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {

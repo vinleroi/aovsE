@@ -19,12 +19,14 @@ type CodeForIBMiExports = {
   instance: { getConnection(): IBMiConnection | undefined };
 };
 
-export function getIBMiApi(): IBMiApi | undefined {
+export type IBMiApiError = 'not-installed' | 'not-connected';
+
+export function getIBMiApi(): IBMiApi | IBMiApiError {
   const ext = vscode.extensions.getExtension<CodeForIBMiExports>('halcyontech.vscode-ibmi');
-  if (!ext || !ext.isActive) return undefined;
+  if (!ext || !ext.isActive) return 'not-installed';
 
   const connection = ext.exports.instance.getConnection();
-  if (!connection) return undefined;
+  if (!connection) return 'not-connected';
 
   return {
     downloadMemberContent: (library, file, member) =>

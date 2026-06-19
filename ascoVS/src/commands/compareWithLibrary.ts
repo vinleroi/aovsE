@@ -15,8 +15,22 @@ export async function compareWithLibrary(
   provider: MemberContentProvider
 ): Promise<void> {
   const api = getIBMiApi();
-  if (!api) {
-    vscode.window.showErrorMessage('Aucune connexion IBM i active.');
+  if (api === 'not-installed') {
+    vscode.window.showErrorMessage(
+      'Code for IBM i n\'est pas installé. Installez l\'extension "Code for IBM i" (HalcyonTech) depuis le Marketplace VS Code.',
+      'Ouvrir le Marketplace'
+    ).then(action => {
+      if (action === 'Ouvrir le Marketplace') {
+        vscode.commands.executeCommand(
+          'vscode.open',
+          vscode.Uri.parse('vscode:extension/HalcyonTech.vscode-ibmi')
+        );
+      }
+    });
+    return;
+  }
+  if (api === 'not-connected') {
+    vscode.window.showErrorMessage('Aucune connexion IBM i active. Connecte-toi via le panneau Code for IBM i.');
     return;
   }
 

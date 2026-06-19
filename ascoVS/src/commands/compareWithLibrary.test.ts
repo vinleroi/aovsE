@@ -16,11 +16,21 @@ describe('compareWithLibrary', () => {
     jest.clearAllMocks();
   });
 
-  it('shows error when no IBM i connection', async () => {
-    (ibmiApiModule.getIBMiApi as jest.Mock).mockReturnValue(undefined);
+  it('shows install prompt when Code for IBM i is not installed', async () => {
+    (ibmiApiModule.getIBMiApi as jest.Mock).mockReturnValue('not-installed');
+    (vscode.window.showErrorMessage as jest.Mock).mockResolvedValue(undefined);
     await compareWithLibrary(mockItem, provider);
     expect(vscode.window.showErrorMessage).toHaveBeenCalledWith(
-      'Aucune connexion IBM i active.'
+      expect.stringContaining('Code for IBM i'),
+      'Ouvrir le Marketplace'
+    );
+  });
+
+  it('shows connection error when IBM i is not connected', async () => {
+    (ibmiApiModule.getIBMiApi as jest.Mock).mockReturnValue('not-connected');
+    await compareWithLibrary(mockItem, provider);
+    expect(vscode.window.showErrorMessage).toHaveBeenCalledWith(
+      'Aucune connexion IBM i active. Connecte-toi via le panneau Code for IBM i.'
     );
   });
 
