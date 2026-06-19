@@ -13,7 +13,9 @@
     "type": "git",
     "url": "https://github.com/vinleroi/aovsE"
   },
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:ascoVS.compareWithLibrary"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
