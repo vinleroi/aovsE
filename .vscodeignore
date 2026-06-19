@@ -1,6 +1,8 @@
 .vscode/**
 src/**
 node_modules/**
+docs/**
+out/__mocks__/**
 .gitignore
 jest.config.js
 tsconfig.json
