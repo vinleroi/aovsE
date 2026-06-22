@@ -14,7 +14,7 @@
     "url": "https://github.com/vinleroi/aovsE"
   },
   "activationEvents": [
-    "onCommand:ascoVS.compareWithLibrary"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
